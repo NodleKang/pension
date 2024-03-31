@@ -2,6 +2,7 @@ from model.portfolio import ModelPortfolio
 from repository.google_sheets_repository import GoogleSheetsRepository
 import pandas as pd
 import yaml
+import streamlit as st
 
 # YAML 설정 파일을 로드하는 함수
 def load_config(file_path):
@@ -32,9 +33,10 @@ def main():
     table_name = config['tables']['month_end_assets']
     month_end_assets = repository.get_all_data(db_name, table_name)
 
-    accounts_month_end_assets = pd.merge(accounts, month_end_assets, on='계좌아이디')
+    month_end_assets_df = pd.merge(accounts, month_end_assets, on='계좌아이디')
 
-    print(accounts_month_end_assets)
+    st.subheader('this is data frame')
+    st.dataframe(month_end_assets_df.head())
 
     mp = ModelPortfolio('퇴직연금', '성장형')
 
