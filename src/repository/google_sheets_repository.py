@@ -94,7 +94,7 @@ class GoogleSheetsRepository(DataRepository):
 
             # '입금', '출금', '자산', '금액'으로 끝나는 필드명을 가진 컬럼의 데이터는 decimal로 변환
             for column in df.columns:
-                if column.endswith(('입금', '출금', '자산', '금액')):
+                if column.endswith(('입금', '출금', '자산', '금액', '가액')):
                     df[column] = df[column].apply(
                         lambda x: decimal.Decimal(x.replace(',', '')) if x else decimal.Decimal(0))
 
