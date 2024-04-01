@@ -24,7 +24,7 @@ def display_recent_month_end_data(data):
     recent_month = get_recent_month(data)
     recent_month_end_data = data[data['연월'] == recent_month]
 
-    st.header(recent_month+" 계좌별 자산 현황")
+    st.write(recent_month+" 계좌별 자산 현황")
     st.dataframe(recent_month_end_data)
 
 def main():
