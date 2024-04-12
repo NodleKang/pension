@@ -31,7 +31,7 @@ def view(config: Config, repository: DataRepository):
 
     with st.sidebar:
         menu_selection = option_menu("자산관리",
-                             options=["계좌현황", "월말자산", "연금관리"],
+                             options=["월말자산", "연금관리", "계좌현황"],
                              menu_icon="list",)
 
     if menu_selection == "계좌현황":
