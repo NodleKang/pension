@@ -1,5 +1,6 @@
 from typing import List, Optional
 import gspread
+import streamlit
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread.exceptions import SpreadsheetNotFound, WorksheetNotFound
 import pandas as pd

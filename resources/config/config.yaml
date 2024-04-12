@@ -3,7 +3,7 @@ data_source:
   spreadsheet_name: mydata
 
 google_sheets:
-  credentials_path: D:\Workspace\pension\resources\credentials\gcp-nodle-service-account-credential.json
+  credentials_path: C:\Workspace\pension\resources\credentials\gcp-nodle-service-account-credential.json
 
 mysql:
   connection_string: user:password@host:port/database
