@@ -35,3 +35,10 @@ class Config:
                     return data_set_value['spreadsheet_name'], data_set_value['worksheet_name']
 
         return None, None
+
+    def get_google_credentials_path(self) -> str:
+        if self.active_data_source == 'google_sheets':
+            data_source = self.get_active_data_source()
+            return data_source['credentials_path']
+
+        return None
