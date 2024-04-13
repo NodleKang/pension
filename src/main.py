@@ -23,7 +23,6 @@ def view(all_df: dict):
         view_month_end_assets(all_df)
 
 def main():
-    TABLES = ["accounts", "month_end_assets"]
 
     #### 초기화 ####
     config = Config('C:/Workspace/pension/resources/config/config.yaml')

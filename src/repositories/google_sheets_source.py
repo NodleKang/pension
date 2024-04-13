@@ -8,6 +8,8 @@ import decimal
 
 #
 from .data_source import DataSource
+import streamlit as st
+
 
 class GoogleSheetsSource(DataSource):
     def __init__(self, credentials_file: Optional[str] = None):

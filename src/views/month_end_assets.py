@@ -4,6 +4,7 @@ import plotly.express as px
 
 MONTH_END_ASSETS = "month_end_assets"
 
+
 def view_month_end_assets(all_df: dict):
     df = all_df[MONTH_END_ASSETS]
 

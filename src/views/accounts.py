@@ -3,6 +3,7 @@ import plotly.figure_factory as ff
 
 ACCOUNTS = "accounts"
 
+
 def view_accounts(all_df: dict):
     df = all_df[ACCOUNTS]
 
