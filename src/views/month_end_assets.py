@@ -21,7 +21,7 @@ def view_month_end_assets(all_df: dict):
             "연월을 선택하세요:",
             min_value=yyyymm_list[0].to_pydatetime(),
             max_value=yyyymm_list[-1].to_pydatetime(),
-            value=yyyymm_list[0].to_pydatetime(),
+            value=yyyymm_list[-1].to_pydatetime(),
             format='YYYY-MM'
         )
         # 슬라이더에 선택된 연월에 해당하는 데이터 필터링
