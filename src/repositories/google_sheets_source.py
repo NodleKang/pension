@@ -1,9 +1,9 @@
-from typing import List, Optional
+from typing import Optional
 import gspread
-import streamlit
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread.exceptions import SpreadsheetNotFound, WorksheetNotFound
 import pandas as pd
+from pandas.tseries.offsets import MonthEnd
 import decimal
 
 #
@@ -46,11 +46,15 @@ class GoogleSheetsSource(DataSource):
             # 첫 번째 행을 컬럼명으로 사용
             df = pd.DataFrame(data[1:], columns=data[0])
 
-            # '입금', '출금', '자산', '금액'으로 끝나는 필드명을 가진 컬럼의 데이터는 decimal로 변환
+            # 컬럼 가공
             for column in df.columns:
+                # '입금', '출금', '자산', '금액'으로 끝나는 필드명을 가진 컬럼의 데이터는 decimal로 변환
                 if column.endswith(('입금', '출금', '자산', '금액', '가액')):
                     df[column] = df[column].apply(
                         lambda x: decimal.Decimal(x.replace(',', '')) if x else decimal.Decimal(0))
+                # 연월 필드의 데이터 타입을 date 타입으로 변환하고, 각 달의 마지막 날로 설정
+                if column == '연월':
+                    df['연월'] = pd.to_datetime(df['연월']) + MonthEnd(1)
 
             return df
         except (SpreadsheetNotFound, WorksheetNotFound) as e:
