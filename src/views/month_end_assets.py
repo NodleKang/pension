@@ -13,13 +13,6 @@ def view_month_end_assets(all_df: dict):
     st.header("월말 자산")
 
     # 첫번째 행
-    col1 = st.columns(1)
-    with col1[0]:
-        total_value = df['평가액'].sum()
-        formatted_total_value = f"{total_value:,}원"
-        st.write(f'현재 자산 총액은 {formatted_total_value} 입니다.')
-
-    # 두번째 행
     col2 = st.columns(1)
     with col2[0]:
         # 연월 선택을 위한 슬라이더
@@ -33,6 +26,13 @@ def view_month_end_assets(all_df: dict):
         )
         # 슬라이더에 선택된 연월에 해당하는 데이터 필터링
         filtered_data = df[df['연월'] == yyyymm_slider]
+
+    # 두번째 행
+    col1 = st.columns(1)
+    with col1[0]:
+        total_value = filtered_data['평가액'].sum()
+        formatted_total_value = f"{total_value:,}원"
+        st.write(f'자산 총액은 {formatted_total_value} 입니다.')
 
     # 세번째 행
     col3 = st.columns(1)
