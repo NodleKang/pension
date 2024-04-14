@@ -24,6 +24,8 @@ class Test(TestCase):
         df = data_source.load_data(db_name, table_name)
         all_df["month_end_assets"] = pd.merge(all_df["accounts"], df, on="계좌아이디")
 
-        yyyymm_list = [i for i in df['연월'].unique()]
+        db_name, table_name = config.get_source_identifiers("pension_mp")
+        df = data_source.load_data(db_name, table_name)
+        all_df["pension_mp"] = df
 
         print(all_df)

@@ -10,6 +10,9 @@ data_sources:
       month_end_assets:
         spreadsheet_name: "mydata"
         worksheet_name: "월말자산"
+      pension_mp:
+        spreadsheet_name: "mydata"
+        worksheet_name: "연금MP"
 
   mysql:
     name: "사용자 데이터"

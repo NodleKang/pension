@@ -4,11 +4,8 @@ import plotly.express as px
 import plotly.figure_factory as ff
 
 
-MONTH_END_ASSETS = "month_end_assets"
-
-
 def view_month_end_assets(all_df: dict):
-    df : pd.DataFrame = all_df[MONTH_END_ASSETS]
+    df : pd.DataFrame = all_df["month_end_assets"]
 
     st.header("월말 자산")
 
