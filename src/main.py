@@ -1,51 +1,46 @@
-from services.config import Config
-from repositories.data_source_factory import DataSourceFactory
-import pandas as pd
 import streamlit as st
-from streamlit_option_menu import option_menu
-from views.month_end_assets import view_month_end_assets
-from views.accounts import view_accounts
-from views.pension import view_pension
+from data.data_loader import DataLoader
+from data.data_processor import DataProcessor
+from data.cache_manager import CacheManager
+import yaml
 
 
-# 화면 출력
-def view(all_df: dict):
-    st.set_page_config(layout='wide')
+def load_config(config_path: str) -> dict:
+    config: dict
 
-    with st.sidebar:
-        menu_selection = option_menu("자산관리",
-                             options=["월말자산", "연금관리", "계좌현황"],
-                             menu_icon="list",)
+    try:
+        with open(config_path, 'r', encoding='utf-8') as file:
+            config = yaml.safe_load(file)
+    except FileNotFoundError:
+        raise Exception("Configuration file not found")
+    except yaml.YAMLError:
+        raise Exception("Error parsing the configuration file")
 
-    if menu_selection == "월말자산":
-        view_month_end_assets(all_df)
-    elif menu_selection == "연금관리":
-        view_pension(all_df)
-    elif menu_selection == "계좌현황":
-        view_accounts(all_df)
+    return config
 
 def main():
 
-    #### 초기화 ####
-    config = Config('C:/Workspace/pension/resources/config/config.yaml')
-    data_source = DataSourceFactory.get_data_source(config)
+    # Streamlit 멀티페이지 앱 기능 활용
+    # Streamlit 세션 상태에 data_processor가 없으면 데이터를 가져와서 저장
+    if 'data_processor' not in st.session_state:
+        config = load_config('C:/Workspace/pension/resources/config/config.yaml')
 
-    #### 데이터 로드 ####
-    all_df = {}
-    db_name, table_name = config.get_source_identifiers("accounts")
-    df = data_source.load_data(db_name, table_name)
-    all_df["accounts"] = df
+        cache_manager = CacheManager(config["cache"]["expiration_time"])
+        data_loader = DataLoader(config["google_sheets"], config["worksheets"])
+        data_processor = DataProcessor(data_loader, cache_manager)
 
-    db_name, table_name = config.get_source_identifiers("month_end_assets")
-    df = data_source.load_data(db_name, table_name)
-    all_df["month_end_assets"] = pd.merge(all_df["accounts"], df, on="계좌아이디")
+        # 초기 데이터 로딩 및 캐싱
+        data_processor.load_and_cache_data()
 
-    db_name, table_name = config.get_source_identifiers("pension_mp")
-    df = data_source.load_data(db_name, table_name)
-    all_df["pension_mp"] = df
+        st.session_state['data_processor'] = data_processor
 
-    #### View ####
-    view(all_df)
+    st.set_page_config(
+        layout='wide',
+        page_title="강노들 자산현황",
+        page_icon="👋",
+    )
+    st.title("Welcome to Data Analysis App")
+    st.write("Please select a page from the sidebar to start exploring the data.")
 
 if __name__ == "__main__":
     main()

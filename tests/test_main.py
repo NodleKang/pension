@@ -11,7 +11,7 @@ class Test(TestCase):
 
     def test_load_config(self):
         #### 초기화 ####
-        config = services.Config('C:/Workspace/pension/resources/config/config.yaml')
+        config = services.Config('/resources/config/config_backup.yaml')
         data_source = DataSourceFactory.get_data_source(config)
 
         #### 데이터 로드 ####

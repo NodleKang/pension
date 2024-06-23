@@ -1,0 +1,38 @@
+active_data_source: "google_sheets"
+
+data_sources:
+  google_sheets:
+    credentials_path: C:\Workspace\pension\resources\credentials\gcp-nodle-service-account-credential.json
+    data_sets:
+      accounts:
+        spreadsheet_name: "mydata"
+        worksheet_name: "계좌"
+      month_end_assets:
+        spreadsheet_name: "mydata"
+        worksheet_name: "월말자산"
+      pension_mp:
+        spreadsheet_name: "mydata"
+        worksheet_name: "연금MP"
+
+  mysql:
+    name: "사용자 데이터"
+    host: "localhost"
+    port: 3306
+    database: "my_database"
+    credentials:
+      username: "user"
+      password: "password"
+    tables:
+      accounts: "user_accounts"
+      assets: "user_assets"
+
+  elasticsearch:
+    name: "사용자 인덱스"
+    url: "http://localhost:9200"
+    index: "my_index"
+    credentials:
+      username: "user"
+      password: "password"
+    data_sets:
+      accounts: "account_data"
+      assets: "asset_data"
