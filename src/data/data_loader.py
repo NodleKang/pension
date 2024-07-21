@@ -38,12 +38,18 @@ class DataLoader:
         Returns:
             Dict[str, pd.DataFrame]: 처리된 데이터프레임들을 담은 딕셔너리
         """
+        # 계좌
         accounts_df = (self.google_sheets_helper
                        .get_worksheet_as_dataframe(self.spreadsheet_id,
                                                    self.worksheets_config["accounts"]))
+        # 월말자산
         monthly_assets_df = (self.google_sheets_helper
                                .get_worksheet_as_dataframe(self.spreadsheet_id,
                                                            self.worksheets_config["monthly_assets"]))
+        monthly_assets_df = pd.merge(monthly_assets_df, accounts_df, on='계좌아이디', how='left')
+        monthly_assets_df['연금여부'] = monthly_assets_df['연금여부'].apply(lambda x: "연금" if x == 'Y' else "일반")
+
+        # 입출금
         io_history_df = (self.google_sheets_helper
                                 .get_worksheet_as_dataframe(self.spreadsheet_id,
                                                             self.worksheets_config["io_history"]))
