@@ -1,9 +1,7 @@
 import streamlit as st
 import plotly.express as px
-import altair as alt
 from data.data_processor import DataProcessor
 import pandas as pd
-import math
 
 
 def format_currency(value):
