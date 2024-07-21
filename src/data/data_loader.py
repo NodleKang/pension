@@ -41,15 +41,15 @@ class DataLoader:
         accounts_df = (self.google_sheets_helper
                        .get_worksheet_as_dataframe(self.spreadsheet_id,
                                                    self.worksheets_config["accounts"]))
-        month_end_assets_df = (self.google_sheets_helper
+        monthly_assets_df = (self.google_sheets_helper
                                .get_worksheet_as_dataframe(self.spreadsheet_id,
-                                                           self.worksheets_config["month_end_assets"]))
+                                                           self.worksheets_config["monthly_assets"]))
         io_history_df = (self.google_sheets_helper
                                 .get_worksheet_as_dataframe(self.spreadsheet_id,
                                                             self.worksheets_config["io_history"]))
         return {
             "accounts": self._df_manufacture(accounts_df),
-            "month_end_assets": self._df_manufacture(month_end_assets_df),
+            "monthly_assets": self._df_manufacture(monthly_assets_df),
             "io_history": self._df_manufacture(io_history_df)
         }
 

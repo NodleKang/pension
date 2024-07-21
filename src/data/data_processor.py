@@ -28,15 +28,15 @@ class DataProcessor:
 
             data_dict = self.data_loader.load_data()
             accounts = data_dict["accounts"]
-            month_end_assets = data_dict["month_end_assets"]
+            monthly_assets = data_dict["monthly_assets"]
             pension_portfolio = data_dict["pension_portfolio"]
 
             # 데이터 타입 최적화
             self.optimize_dtypes(accounts)
-            self.optimize_dtypes(month_end_assets)
+            self.optimize_dtypes(monthly_assets)
             self.optimize_dtypes(pension_portfolio)
 
-            return {"accounts": accounts, "month_end_assets": month_end_assets, "pension_portfolio": pension_portfolio}
+            return {"accounts": accounts, "monthly_assets": monthly_assets, "pension_portfolio": pension_portfolio}
 
         return _load_and_process
 
@@ -56,7 +56,7 @@ class DataProcessor:
         return self.processed_data["month_end_assets"]["yyyymm"].unique()
 
     def filter_data_by_yyyymm(self, yyyymm: str) -> pd.DataFrame:
-        return self.processed_data["month_end_assets"][self.processed_data["month_end_assets"]["yyyymm"] == yyyymm]
+        return self.processed_data["monthly_assets"][self.processed_data["monthly_assets"]["yyyymm"] == yyyymm]
 
     def get_data_count_by_yyyymm(self) -> pd.DataFrame:
         return self.processed_data["month_end_assets"]["yyyymm"].value_counts().reset_index()

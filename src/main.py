@@ -21,6 +21,9 @@ def load_config(config_path: str) -> dict:
 def main():
 
     # Streamlit 멀티페이지 앱 기능 활용
+    # 1. pages 디렉토리에 있는 파일이 곧 메뉴가 됩니다.
+    # 2. 파일명으로 앱 페이지명이 결정됩니다.
+
     # Streamlit 세션 상태에 data_processor가 없으면 데이터를 가져와서 저장
     if 'data_processor' not in st.session_state:
         config = load_config('C:/Workspace/pension/resources/config/config.yaml')
@@ -39,8 +42,18 @@ def main():
         page_title="강노들 자산현황",
         page_icon="👋",
     )
-    st.title("Welcome to Data Analysis App")
-    st.write("Please select a page from the sidebar to start exploring the data.")
+
+    st.title("Nodle's Assets")
+
+    # st.sidebar.success("Select a menu.")
+
+    st.markdown(
+        """
+        강노들 자산 관리 페이지 입니다.
+        
+        현재 자산의 현황을 관리합니다.
+        """
+    )
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@ google_sheets:
 
 worksheets:
   accounts: "계좌"
-  month_end_assets: "월말자산"
+  monthly_assets: "월말자산"
   io_history: "입출금"
 
 cache:
