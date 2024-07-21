@@ -5,7 +5,7 @@ google_sheets:
 worksheets:
   accounts: "계좌"
   month_end_assets: "월말자산"
-  pension_portfolio: "연금MP"
+  io_history: "입출금"
 
 cache:
-  expiration_time: 3600  # 캐시 만료 시간 (초)
+  expiration_time: 3600  # 캐시 만료 시간 (초, 1시간)
